@@ -45,8 +45,39 @@ class App extends Component {
       todos: newList
     })
   }
-  removeTodo = ()=>{}
-  updateTodo = ()=>{}
+  removeTodo = (id)=>{
+    var todos = this.state.todos
+
+    var filtered = todos.filter((todo)=>{
+
+      return todo.id != id
+    })
+    this.setState({
+      todos: filtered
+    })
+
+  }
+  updateTodo = (id,data)=>{
+    // id = 1
+    // data = {
+    //   content: 'Water house plants and garden'
+    // }
+    var todos = this.state.todos
+    var updated = todos.map((todo)=>{
+
+      // if(todo.id == id){
+      //   //return the updated item
+      //   return{...todo,...data}
+      // }else{
+      //   //return as is
+      //   return todo
+      // }
+      return (todo.id =- id) ? {...todo,...data} : todo
+    })
+    this.setState({
+      todos:updated
+    })
+  }
 
   render(){
     return (
@@ -59,7 +90,8 @@ class App extends Component {
 
                 var todoProps = { //this key here is for the list above, to link it to the return below//
                   key: todo.id,
-                  ...todo
+                  ...todo,
+                  removeTodo: this.removeTodo
                 }
                 return(
 
